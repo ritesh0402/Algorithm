@@ -1,0 +1,3 @@
+Title : a	Author : b	Booktype : c	Publication : d	Price : r	
+Title : f	Author : g	Booktype : h	Publication : i	Price : j	
+Title : k	Author : l	Booktype : m	Publication : n	Price : o	
