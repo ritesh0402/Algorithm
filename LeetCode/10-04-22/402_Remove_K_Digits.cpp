@@ -3,7 +3,6 @@ class Solution
 public:
     string removeKdigits(string num, int k)
     {
-        int last = 0;
 
         for (int j = 0; j < k; j++)
         {
@@ -13,10 +12,10 @@ public:
                 {
                     num = num.substr(0, i) + num.substr(i + 1, num.length());
                 }
-                else if (i == num.length() - 1)
-                {
-                    num = num.substr(0, i);
-                }
+                // else if (i == num.length() - 1)
+                // {
+                //     num = num.substr(0, i);
+                // }
             }
         }
 
