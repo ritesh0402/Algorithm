@@ -11,6 +11,7 @@ int main()
     for (int i = 0; i < t; i++)
     {
         n = 0;
+        str = "";
         cin >> n >> str;
         for (int i = 0; i < n; i++)
         {
