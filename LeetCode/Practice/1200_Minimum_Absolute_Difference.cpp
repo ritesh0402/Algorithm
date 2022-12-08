@@ -8,15 +8,17 @@ public:
         int mindiff = arr[1] - arr[0];
         for (int i = 0; i < arr.size() - 1; i++)
         {
-            if (mindiff > arr[i + 1] - arr[i])
+            if (mindiff < arr[i + 1] - arr[i])
+                continue;
+            if (mindiff == arr[i + 1] - arr[i])
+            {
+                ans.push_back({arr[i], arr[i + 1]});
+            }
+            else if (mindiff > arr[i + 1] - arr[i])
             {
                 ans.clear();
                 ans.push_back({arr[i], arr[i + 1]});
                 mindiff = (arr[i + 1] - arr[i]);
-            }
-            else if (mindiff == arr[i + 1] - arr[i])
-            {
-                ans.push_back({arr[i], arr[i + 1]});
             }
         }
         return ans;
