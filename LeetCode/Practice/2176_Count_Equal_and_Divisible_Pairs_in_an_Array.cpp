@@ -8,7 +8,7 @@ public:
         {
             for (int j = i + 1; j < nums.size(); j++)
             {
-                if (nums[i] == nums[j] && (i * j) % k == 0)
+                if ((i * j) % k == 0 && nums[i] == nums[j])
                 {
                     ans++;
                 }

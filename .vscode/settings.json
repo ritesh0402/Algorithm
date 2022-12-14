@@ -1,6 +1,7 @@
 {
   "C_Cpp.errorSquiggles": "Disabled",
   "files.associations": {
+    "*.ejs": "html",
     "array": "cpp",
     "bitset": "cpp",
     "string_view": "cpp",
@@ -8,6 +9,7 @@
     "regex": "cpp",
     "utility": "cpp",
     "valarray": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "vector": "cpp"
   }
 }
