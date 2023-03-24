@@ -22,10 +22,8 @@ public:
    {
       if (!root)
          return;
-      if (root->left)
-         inorder(root->left, ans);
+      inorder(root->left, ans);
       ans.push_back(root->val);
-      if (root->right)
-         inorder(root->right, ans);
+      inorder(root->right, ans);
    }
 };
