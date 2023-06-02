@@ -34,20 +34,44 @@
 //     }
 // };
 
+// class Solution {
+// public:
+//     int majorityElement(vector<int>& nums) {
+//         unordered_map<int, int> ump;
+//         for(int &x: nums){
+//             ump[x]++;
+//             if(ump[x] > nums.size()/2){
+//                 return x;
+//             }
+//         }
+//         return 0;
+//     }
+// };
+
+// Moore's voting algo
+
 class Solution
 {
 public:
    int majorityElement(vector<int> &nums)
    {
-      unordered_map<int, int> ump;
-      for (int &x : nums)
+      int el = nums[0];
+      int cnt = 0;
+      for (int i = 0; i < nums.size(); i++)
       {
-         ump[x]++;
-         if (ump.at(x) > nums.size() / 2)
+         if (el == nums[i])
          {
-            return x;
+            cnt++;
+         }
+         else
+         {
+            cnt--;
+         }
+         if (cnt == 0)
+         {
+            el = nums[i + 1];
          }
       }
-      return 0;
+      return el;
    }
 };
