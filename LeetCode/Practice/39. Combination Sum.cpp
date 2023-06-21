@@ -10,12 +10,13 @@ public:
    }
    void subSeq(int index, int target, vector<int> &seq, vector<int> &candidates, vector<vector<int>> &ans)
    {
+      if (target == 0)
+      {
+         ans.push_back(seq);
+         return;
+      }
       if (index == candidates.size())
       {
-         if (target == 0)
-         {
-            ans.push_back(seq);
-         }
          return;
       }
       if (candidates[index] <= target)
