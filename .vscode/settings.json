@@ -13,6 +13,7 @@
     "vector": "cpp",
     "unordered_map": "cpp",
     "xstring": "cpp",
-    "xlocale": "cpp"
+    "xlocale": "cpp",
+    "xstddef": "cpp"
   }
 }
