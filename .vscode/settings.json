@@ -14,6 +14,7 @@
     "unordered_map": "cpp",
     "xstring": "cpp",
     "xlocale": "cpp",
-    "xstddef": "cpp"
+    "xstddef": "cpp",
+    "ostream": "cpp"
   }
 }

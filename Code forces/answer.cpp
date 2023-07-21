@@ -9,61 +9,27 @@ int main()
    cin >> t;
    for (int i = 0; i < t; i++)
    {
-      int n = 0, m = 0, h = 0, temp = 0;
-      cin >> n >> m >> h;
-      priority_queue<pair<int, int>> pointTable;
-      vector<priority_queue<int, vector<int>, greater<int>>> vopq(n);
+      int n = 0, k = 0, ans = INT_MAX, a = 0;
+      cin >> n >> k;
+      priority_queue<int> pq;
       for (int i = 0; i < n; i++)
       {
-         for (int j = 0; j < m; j++)
-         {
-            cin >> temp;
-            vopq[i].push(temp);
-         }
+         cin >> a;
+         pq.push(a);
       }
-      if (n == 1)
-      {
-         cout << 1 << endl;
-         continue;
-      }
-      // rodolf rank
-      int rpenalty = 0, rpoints = 0;
-      for (int j = 0; j < m; j++)
-      {
-         if ((2 * rpenalty) + vopq[0].top() > h)
-            break;
-         rpenalty += vopq[0].top() + rpenalty;
-         vopq[0].pop();
-         rpoints++;
-      }
-      rpenalty = h - rpenalty;
 
+      int remove = n;
       for (int i = 1; i < n; i++)
       {
-         int penalty = 0, points = 0;
-         for (int j = 0; j < m; j++)
+         int prev = pq.top();
+         pq.pop();
+         remove--;
+         if (prev - pq.top() > k)
          {
-            if ((2 * penalty) + vopq[i].top() > h)
-               break;
-            penalty += vopq[i].top() + penalty;
-            vopq[i].pop();
-            points++;
+            ans = min(ans, remove);
+            remove = n;
          }
-         pointTable.push(make_pair(points, h - penalty));
       }
-      int rank = 1;
-
-      while (!pointTable.empty() && rpoints <= pointTable.top().first)
-      {
-         cout << "--" << pointTable.top().first << " " << pointTable.top().second << endl;
-         if (rpoints == pointTable.top().first && rpenalty >= pointTable.top().second)
-         {
-            break;
-         }
-         rank++;
-         pointTable.pop();
-      }
-
-      cout << rank << endl;
+      cout << min(ans, remove - 1) << endl;
    }
 }
