@@ -9,27 +9,10 @@ int main()
    cin >> t;
    for (int i = 0; i < t; i++)
    {
-      int n = 0, k = 0, ans = INT_MAX, a = 0;
-      cin >> n >> k;
-      priority_queue<int> pq;
-      for (int i = 0; i < n; i++)
-      {
-         cin >> a;
-         pq.push(a);
-      }
-
-      int remove = n;
-      for (int i = 1; i < n; i++)
-      {
-         int prev = pq.top();
-         pq.pop();
-         remove--;
-         if (prev - pq.top() > k)
-         {
-            ans = min(ans, remove);
-            remove = n;
-         }
-      }
-      cout << min(ans, remove - 1) << endl;
+      int a = 0, b = 0, c = 0, ans = 0;
+      cin >> a >> b >> c;
+      c = c * 2;
+      ans = abs(a - b) / c + (abs(a - b) % c != 0);
+      cout << ans << endl;
    }
 }
