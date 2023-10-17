@@ -12,24 +12,31 @@
 class Solution
 {
 public:
-   int ans = 0;
    int sumNumbers(TreeNode *root)
    {
-      r2lSum(root, 0);
+      int path = 0, ans = 0;
+      helper(root, path, ans);
       return ans;
    }
 
-   void r2lSum(TreeNode *root, int sum)
+   void helper(TreeNode *node, int &path, int &ans)
    {
-      sum *= 10;
-      sum += root->val;
-      if (!root->left && !root->right)
+      if (!node)
+         return;
+
+      path *= 10;
+      path += node->val;
+
+      if (!node->left && !node->right)
       {
-         ans += sum;
+         // cout << path << endl;
+         ans += path;
+         path /= 10;
+         return;
       }
-      if (root->left)
-         r2lSum(root->left, sum);
-      if (root->right)
-         r2lSum(root->right, sum);
+
+      helper(node->left, path, ans);
+      helper(node->right, path, ans);
+      path /= 10;
    }
 };
