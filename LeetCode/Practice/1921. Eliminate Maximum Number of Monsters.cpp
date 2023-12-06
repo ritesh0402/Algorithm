@@ -3,23 +3,21 @@ class Solution
 public:
    int eliminateMaximum(vector<int> &dist, vector<int> &speed)
    {
-      double s[dist.size()];
+      vector<int> time(dist.size());
+
       for (int i = 0; i < dist.size(); i++)
+         time[i] = ceil((float)dist[i] / speed[i]);
+
+      sort(time.begin(), time.end());
+
+      int ans = 0;
+      int T = 0;
+      for (int i = 0; i < time.size(); i++)
       {
-         s[i] = (1.0 * dist[i] / speed[i] * 1.0);
-      }
-      sort(s, s + dist.size());
-      int ans = 1;
-      for (int i = 1; i < dist.size(); i++)
-      {
-         if (s[i] <= i)
-         {
-            return ans;
-         }
-         else
-         {
+         if (T++ < time[i])
             ans++;
-         }
+         else
+            break;
       }
       return ans;
    }
