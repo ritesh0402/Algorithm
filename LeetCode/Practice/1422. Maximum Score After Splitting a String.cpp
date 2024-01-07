@@ -1,33 +1,35 @@
+// class Solution {
+// public:
+//     int maxScore(const string& s) {
+//         int max_score = 0;
+//         int count_zeros_left = 0;
+//         int count_ones_right = count(s.begin(), s.end(), '1');
+
+//         for (int i = 0; i < s.size() - 1; ++i) {
+//             count_zeros_left += (s[i] == '0');
+//             count_ones_right -= (s[i] == '1');
+//             max_score = max(max_score, count_zeros_left + count_ones_right);
+//         }
+
+//         return max_score;
+//     }
+// };
+
 class Solution
 {
 public:
-   int maxScore(string s)
+   int maxScore(const string &s)
    {
-      int sum = 0;
-      int n = s.length();
-      int zeros = 0;
-      int ones = 0;
-      int max1 = -n;
-
-      for (int i = 0; i < n; i++)
+      int leftZeros = 0, score = 0;
+      int rightOnes = count(s.begin(), s.end(), '1');
+      for (int i = 0; i < s.length() - 1; i++)
       {
-
          if (s[i] == '0')
-         {
-            zeros++;
-         }
+            leftZeros++;
          else
-         {
-            ones++;
-            sum++;
-         }
-
-         if (i < n - 1)
-         {
-            max1 = max(max1, zeros - ones);
-         }
+            rightOnes--;
+         score = max(score, leftZeros + rightOnes);
       }
-
-      return max1 + sum;
+      return score;
    }
 };
