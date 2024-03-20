@@ -5,59 +5,60 @@ public:
    {
       vector<vector<string>> ans;
       vector<string> board(n, string(n, '.'));
-      vector<int> west(n, 0);
-      vector<int> northWest((2 * n) - 1, 0);
-      vector<int> southWest((2 * n) - 1, 0);
-      placeQueen(0, n, board, ans, west, northWest, southWest);
+      vector<int> west(n, 0), nw(n * 2 - 1, 0), sw(n * 2 - 1, 0);
+      solve(0, n, west, nw, sw, board, ans);
       return ans;
    }
 
-   void placeQueen(int col, int n, vector<string> &board, vector<vector<string>> &ans, vector<int> &west, vector<int> &northWest, vector<int> &southWest)
+   void solve(int col, int n, vector<int> &west, vector<int> &nw, vector<int> &sw, vector<string> &board, vector<vector<string>> &ans)
    {
       if (col == n)
       {
          ans.push_back(board);
          return;
       }
+
       for (int row = 0; row < n; row++)
       {
-         if (west[row] == 0 && northWest[n - 1 + col - row] == 0 && southWest[col + row] == 0)
+         if (west[row] == 0 && nw[n - 1 - row + col] == 0 && sw[row + col] == 0)
          {
-            board[row][col] = 'Q';
             west[row] = 1;
-            northWest[n - 1 + col - row] = 1;
-            southWest[col + row] = 1;
-            placeQueen(col + 1, n, board, ans, west, northWest, southWest);
-            board[row][col] = '.';
+            nw[n - 1 - row + col] = 1;
+            sw[row + col] = 1;
+            board[row][col] = 'Q';
+            solve(col + 1, n, west, nw, sw, board, ans);
             west[row] = 0;
-            northWest[n - 1 + col - row] = 0;
-            southWest[col + row] = 0;
+            nw[n - 1 - row + col] = 0;
+            sw[row + col] = 0;
+            board[row][col] = '.';
          }
       }
    }
-
-   // bool isSafe(int row, int col, int n, vector<string>& board){
-   //     int rowCpy = row, colCpy = col;
-   //     while(rowCpy>=0 && colCpy>=0){
-   //         if(board[rowCpy][colCpy] == 'Q') return false;
-   //         row--;
-   //         col--;
-   //     }
-
-   //     rowCpy = row;
-   //     colCpy = col;
-   //     while(colCpy>=0){
-   //         if(board[rowCpy][colCpy] == 'Q') return false;
-   //         col--;
-   //     }
-
-   //     rowCpy = row;
-   //     colCpy = col;
-   //     while(rowCpy<n && colCpy>=0){
-   //         if(board[rowCpy][colCpy] == 'Q') return false;
-   //         row++;
-   //         col--;
-   //     }
-   //     return true;
-   // }
 };
+
+// bool isSafe(int row, int col, int n, vector<string>& board){
+//     int rowCpy = row, colCpy = col;
+//     while(rowCpy>=0 && colCpy>=0){
+//         if(board[rowCpy][colCpy] == 'Q') return false;
+//         row--;
+//         col--;
+//     }
+
+//     rowCpy = row;
+//     colCpy = col;
+//     while(colCpy>=0){
+//         if(board[rowCpy][colCpy] == 'Q') return false;
+//         col--;
+//     }
+
+//     rowCpy = row;
+//     colCpy = col;
+//     while(rowCpy<n && colCpy>=0){
+//         if(board[rowCpy][colCpy] == 'Q') return false;
+//         row++;
+//         col--;
+//     }
+//     return true;
+// }
+}
+;

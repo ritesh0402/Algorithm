@@ -4,34 +4,32 @@ public:
    int totalNQueens(int n)
    {
       vector<string> board(n, string(n, '.'));
-      vector<int> west(n, 0);
-      vector<int> northWest((2 * n) - 1, 0);
-      vector<int> southWest((2 * n) - 1, 0);
-      return placeQueen(0, n, board, west, northWest, southWest);
+      vector<int> west(n, 0), nw(n * 2 - 1, 0), sw(n * 2 - 1, 0);
+      return solve(0, n, west, nw, sw, board);
    }
 
-   int placeQueen(int col, int n, vector<string> &board, vector<int> &west, vector<int> &northWest, vector<int> &southWest)
+   int solve(int col, int n, vector<int> &west, vector<int> &nw, vector<int> &sw, vector<string> &board)
    {
       if (col == n)
       {
          return 1;
       }
-      int count = 0;
+      int temp = 0;
       for (int row = 0; row < n; row++)
       {
-         if (west[row] == 0 && northWest[n - 1 + col - row] == 0 && southWest[col + row] == 0)
+         if (west[row] == 0 && nw[n - 1 - row + col] == 0 && sw[row + col] == 0)
          {
-            board[row][col] = 'Q';
             west[row] = 1;
-            northWest[n - 1 + col - row] = 1;
-            southWest[col + row] = 1;
-            count += placeQueen(col + 1, n, board, west, northWest, southWest);
-            board[row][col] = '.';
+            nw[n - 1 - row + col] = 1;
+            sw[row + col] = 1;
+            board[row][col] = 'Q';
+            temp += solve(col + 1, n, west, nw, sw, board);
             west[row] = 0;
-            northWest[n - 1 + col - row] = 0;
-            southWest[col + row] = 0;
+            nw[n - 1 - row + col] = 0;
+            sw[row + col] = 0;
+            board[row][col] = '.';
          }
       }
-      return count;
+      return temp;
    }
 };
