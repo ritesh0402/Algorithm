@@ -13,17 +13,14 @@ class Solution
 public:
     ListNode *middleNode(ListNode *head)
     {
-        ListNode *mid = head;
-        int i = 1;
-        while (head->next != NULL)
+        ListNode *fast = head;
+        ListNode *slow = head;
+        while (fast != NULL && fast->next != NULL)
         {
-            if (i % 2 != 0)
-            {
-                mid = mid->next;
-            }
-            i++;
-            head = head->next;
+            fast = fast->next->next;
+            slow = slow->next;
         }
-        return mid;
+
+        return slow;
     }
 };
