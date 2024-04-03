@@ -4,28 +4,23 @@ public:
    vector<vector<int>> combine(int n, int k)
    {
       vector<vector<int>> ans;
-      vector<int> seq;
-      vector<int> nums;
-      for (int i = 1; i <= n; i++)
-         nums.push_back(i);
-      combi(0, k, seq, nums, ans);
+      vector<int> ds;
+      helper(1, n, k, ds, ans);
       return ans;
    }
 
-   void combi(int index, int k, vector<int> &seq, vector<int> &nums, vector<vector<int>> &ans)
+   void helper(int ind, int n, int k, vector<int> &ds, vector<vector<int>> &ans)
    {
-      if (seq.size() == k)
+      if (ds.size() == k)
       {
-         ans.push_back(seq);
+         ans.push_back(ds);
          return;
       }
-      if (index == nums.size())
-         return;
-
-      seq.push_back(nums[index]);
-      combi(index + 1, k, seq, nums, ans);
-      seq.pop_back();
-      combi(index + 1, k, seq, nums, ans);
-      return;
+      for (int i = ind; i <= n; i++)
+      {
+         ds.push_back(i);
+         helper(i + 1, n, k, ds, ans);
+         ds.pop_back();
+      }
    }
 };
