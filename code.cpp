@@ -7,47 +7,24 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n = 0, k = 0, m = 0, ans = 0, temp = 0;
-        cin >> n >> m >> k;
-        vector<int> a;
-        int nums[m] = {0};
+        int n = 0, c = 0, d = 0, ans = 0, temp = 0, start = INT_MAX;
+        cin >> n >> c >> d;
+        unordered_set<int> st;
         for (int i = 0; i < n; i++)
         {
             cin >> temp;
-            a.push_back(temp);
+            st.push(temp);
+            start = min(start, temp);
         }
-        for (int i = 0; i < m; i++)
-        {
-            cin >> temp;
-            nums[temp]++;
-        }
-        int matches = 0, l = -1, r = 0;
-        for (r = 0; r < m; r++)
-        {
-            if (ump.find(a[r]) != ump.end())
-            {
-                if (ump.at(a[r]) == 0)
-                    matches++;
-                ump[a[r]]++;
-            }
-        }
-        while (r < n - 1)
-        {
-            l++;
-            if (ump.find(a[l]) != ump.end())
-            {
-                matches--;
-                ump[a[l]]--;
-            }
-            r++;
-            if (ump.find(a[r]) != ump.end())
-            {
-                matches++;
-                ump[a[l]]++;
-            }
-            if (matches >= k)
-                ans++;
-        }
+
         cout << ans << endl;
     }
+}
+
+int main()
+{
+    while (r < n)
+    {
+    }
+    if (sum % (l - r) == 0)
 }
