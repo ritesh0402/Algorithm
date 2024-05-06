@@ -27,3 +27,22 @@ public:
         }
     }
 };
+
+class Solution
+{
+public:
+    int minDepth(TreeNode *root)
+    {
+        if (root == NULL)
+            return 0;
+
+        int left = minDepth(root->left);
+        int right = minDepth(root->right);
+
+        if (right == 0 || left == 0)
+            return max(left, right) + 1;
+        root->left = NULL;
+        root->right = NULL;
+        return min(left, right) + 1;
+    }
+};

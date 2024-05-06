@@ -47,3 +47,33 @@ public:
       return root;
    }
 };
+
+class Solution
+{
+public:
+   Node *connect(Node *root)
+   {
+      if (!root)
+         return root;
+      int n;
+      queue<Node *> q;
+      Node *node = root;
+      q.push(node);
+      while (!q.empty())
+      {
+         n = q.size();
+         for (int i = 0; i < n; i++)
+         {
+            if (i > 0)
+               node->next = q.front();
+            node = q.front();
+            q.pop();
+            if (node->left)
+               q.push(node->left);
+            if (node->right)
+               q.push(node->right);
+         }
+      }
+      return root;
+   }
+};

@@ -9,6 +9,31 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+class Solution
+{
+public:
+   void flatten(TreeNode *root)
+   {
+      if (!root)
+         return;
+      stack<TreeNode *> st;
+      st.push(root);
+      while (!st.empty())
+      {
+         root = st.top();
+         st.pop();
+         if (root->right)
+            st.push(root->right);
+         if (root->left)
+            st.push(root->left);
+         root->left = NULL;
+         if (!st.empty())
+            root->right = st.top();
+      }
+   }
+};
+
 class Solution
 {
 public:

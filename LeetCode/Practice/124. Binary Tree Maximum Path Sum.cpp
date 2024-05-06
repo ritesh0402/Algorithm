@@ -12,25 +12,20 @@
 class Solution
 {
 public:
-   int sumNumbers(TreeNode *root)
+   int maxPathSum(TreeNode *root)
    {
-      int sum = 0;
-      helper(0, sum, root);
-      return sum;
+      int maxSum = INT_MIN;
+      helper(maxSum, root);
+      return maxSum;
    }
 
-   void helper(int num, int &sum, TreeNode *root)
+   int helper(int &maxSum, TreeNode *root)
    {
       if (!root)
-         return;
-      num *= 10;
-      num += root->val;
-      if (!root->left && !root->right)
-      {
-         sum += num;
-         return;
-      }
-      helper(num, sum, root->left);
-      helper(num, sum, root->right);
+         return 0;
+      int ls = max(helper(maxSum, root->left), 0);
+      int rs = max(helper(maxSum, root->right), 0);
+      maxSum = max(maxSum, ls + rs + root->val);
+      return max(ls, rs) + root->val;
    }
 };

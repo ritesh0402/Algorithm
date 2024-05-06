@@ -9,21 +9,48 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+// class Solution
+// {
+// public:
+//    bool isValidBST(TreeNode *root)
+//    {
+//       return isValidBST(root, LONG_MIN, LONG_MAX);
+//    }
+
+//    bool isValidBST(TreeNode *root, long minVal, long maxVal)
+//    {
+//       if (!root)
+//          return true;
+//       if (root->val <= minVal || root->val >= maxVal)
+//          return false;
+
+//       return isValidBST(root->left, minVal, root->val) && isValidBST(root->right, root->val, maxVal);
+//    }
+// };
+
 class Solution
 {
 public:
    bool isValidBST(TreeNode *root)
    {
-      return isValidBST(root, LONG_MIN, LONG_MAX);
-   }
-
-   bool isValidBST(TreeNode *root, long minVal, long maxVal)
-   {
       if (!root)
-         return true;
-      if (root->val <= minVal || root->val >= maxVal)
          return false;
-
-      return isValidBST(root->left, minVal, root->val) && isValidBST(root->right, root->val, maxVal);
+      stack<TreeNode *> st;
+      long before = LONG_MIN;
+      while (root || !st.empty())
+      {
+         while (root)
+         {
+            st.push(root);
+            root = root->left;
+         }
+         root = st.top();
+         st.pop();
+         if (before >= root->val)
+            return false;
+         before = root->val;
+         root = root->right;
+      }
+      return true;
    }
 };
