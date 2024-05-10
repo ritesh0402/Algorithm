@@ -2,6 +2,7 @@
   "C_Cpp.errorSquiggles": "Disabled",
   "files.associations": {
     "*.ejs": "html",
+    "*.css": "tailwindcss",
     "array": "cpp",
     "bitset": "cpp",
     "string_view": "cpp",
@@ -16,6 +17,9 @@
     "xlocale": "cpp",
     "xstddef": "cpp",
     "ostream": "cpp",
-    "xutility": "cpp"
+    "xutility": "cpp",
+    "algorithm": "cpp",
+    "limits": "cpp",
+    "ctime": "cpp"
   }
 }

@@ -28,3 +28,18 @@ public:
       return node;
    }
 };
+
+class Solution
+{
+public:
+   TreeNode *lowestCommonAncestor(TreeNode *node, TreeNode *p, TreeNode *q)
+   {
+      if (!node || node == p || node == q)
+         return node;
+      TreeNode *l = lowestCommonAncestor(node->left, p, q);
+      TreeNode *r = lowestCommonAncestor(node->right, p, q);
+      return l && r ? node : l ? l
+                         : r   ? r
+                               : NULL;
+   }
+};

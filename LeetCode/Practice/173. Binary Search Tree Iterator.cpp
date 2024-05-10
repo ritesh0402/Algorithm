@@ -43,6 +43,40 @@ public:
    }
 };
 
+class BSTIterator
+{
+public:
+   TreeNode *curr;
+   stack<TreeNode *> st;
+   BSTIterator(TreeNode *root)
+   {
+      curr = root;
+   }
+
+   int next()
+   {
+      int ans = -1;
+      if (curr || !st.empty())
+      {
+         while (curr)
+         {
+            st.push(curr);
+            curr = curr->left;
+         }
+         curr = st.top();
+         st.pop();
+         ans = curr->val;
+         curr = curr->right;
+      }
+      return ans;
+   }
+
+   bool hasNext()
+   {
+      return curr || !st.empty();
+   }
+};
+
 /**
  * Your BSTIterator object will be instantiated and called as such:
  * BSTIterator* obj = new BSTIterator(root);
