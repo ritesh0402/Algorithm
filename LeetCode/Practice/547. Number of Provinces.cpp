@@ -3,30 +3,42 @@ class Solution
 public:
    int findCircleNum(vector<vector<int>> &isConnected)
    {
-      int n = isConnected.size();
-      int provinces = 0;
+      int n = isConnected.size(), provinces = 0;
       vector<bool> visited(n, false);
-
       for (int i = 0; i < n; i++)
       {
          if (!visited[i])
          {
+            dfs(i, visited, isConnected);
             provinces++;
-            dfs(isConnected, visited, i);
          }
       }
-
       return provinces;
    }
 
-   void dfs(vector<vector<int>> &isConnected, vector<bool> &visited, int node)
+   void dfs(int node, vector<bool> &visited, vector<vector<int>> &isConnected)
    {
+      // stack<int> st;
+      // st.push(node);
+      // visited[node] = true;
+      // while(!st.empty()){
+      //     node = st.top();
+      //     st.pop();
+      //     for(int i=0; i<isConnected.size(); i++){
+      //         if(isConnected[node][i] && !visited[i]){
+      //             st.push(i);
+      //             visited[i] = true;
+      //         }
+      //     }
+      // }
+
       visited[node] = true;
-      for (int neighbor = 0; neighbor < isConnected.size(); neighbor++)
+      for (int i = 0; i < isConnected.size(); i++)
       {
-         if (isConnected[node][neighbor] == 1 && !visited[neighbor])
+         if (isConnected[node][i] && !visited[i])
          {
-            dfs(isConnected, visited, neighbor);
+            dfs(i, visited, isConnected);
+            visited[i] = true;
          }
       }
    }
