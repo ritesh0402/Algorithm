@@ -63,3 +63,32 @@ public:
       return image;
    }
 };
+
+class Solution
+{
+public:
+   vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc, int color)
+   {
+      if (image[sr][sc] == color)
+         return image;
+      int n = image.size(), m = image[0].size();
+      dfs(sr, sc, image[sr][sc], color, image);
+      return image;
+   }
+
+   void dfs(int i, int j, int baseColor, int color, vector<vector<int>> &image)
+   {
+      if (image[i][j] != baseColor)
+         return;
+      image[i][j] = color;
+
+      if (i > 0 && image[i - 1][j] == baseColor)
+         dfs(i - 1, j, baseColor, color, image);
+      if (i < image.size() - 1 && image[i + 1][j] == baseColor)
+         dfs(i + 1, j, baseColor, color, image);
+      if (j > 0 && image[i][j - 1] == baseColor)
+         dfs(i, j - 1, baseColor, color, image);
+      if (j < image[0].size() - 1 && image[i][j + 1] == baseColor)
+         dfs(i, j + 1, baseColor, color, image);
+   }
+};
