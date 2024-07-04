@@ -1,45 +1,66 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int gcd(int a, int b)
+{
+    while (b != 0)
+    {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
 void runCase()
 {
-    int n, k, q, temp;
-    cin >> n >> k >> q;
-    vector<int> dist, time;
-    for (int i = 0; i < k; i++)
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
     {
-        cin >> temp;
-        dist.push_back(temp);
+        cin >> a.at(i);
     }
-    dist.insert(dist.begin(), 0);
-    for (int i = 0; i < k; i++)
+    vector<int> b(n);
+    set<int> st;
+    for (auto &x : b)
     {
-        cin >> temp;
-        time.push_back(temp);
+        cin >> x;
+        st.insert(x);
     }
-    time.insert(time.begin(), 0);
-    for (int i = 0; i < q; i++)
+    multiset<int> ops;
+    for (int i = 0; i < n; i++)
     {
-        int d = 0, j = 0;
-        cin >> d;
-        while (d >= dist[j + 1])
-            j++;
+        if (a[i] != b[i])
+            ops.insert(b[i]);
+    }
 
-        if (dist[j] != d)
+    int m;
+    cin >> m;
+    bool status = false;
+    for (int i = 0; i < m; i++)
+    {
+        int x;
+        cin >> x;
+        if (ops.find(x) != ops.end())
         {
-            long long d_diff = d - dist[j];
-            // long double speedReciprocal = (dist[j + 1] - dist[j]) / (time[j + 1] - time[j]);
-            // long long x = time[j] + (speedReciprocal * remainingD);
-            int a_diff = dist[j + 1] - dist[j];
-            int b_diff = time[j + 1] - time[j];
-            cout << time[j] + int64_t(b_diff) * d_diff / a_diff << " ";
+            ops.erase(ops.find(x));
+            if (i == m - 1)
+                status = true;
         }
-        else
+        else if (st.count(x))
         {
-            cout << time[j] << " ";
+            if (i == m - 1)
+                status = true;
         }
     }
-    cout << endl;
+
+    if (status && ops.size() == 0)
+    {
+        cout << "YES" << endl;
+    }
+    else
+        cout << "NO" << endl;
 }
 
 int main()

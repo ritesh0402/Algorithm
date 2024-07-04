@@ -66,3 +66,60 @@ public:
       return dp[key] = subPath(m, n, x + 1, y, dp, obstacleGrid) + subPath(m, n, x, y + 1, dp, obstacleGrid);
    }
 };
+
+class Solution
+{
+public:
+   int uniquePathsWithObstacles(vector<vector<int>> &grid)
+   {
+      int n = grid.size(), m = grid[0].size();
+      // vector<vector<int>> dp(n, vector<int>(m, -1));
+      // return memo(n-1, m-1, grid, dp);
+      return tabu(grid);
+   }
+
+   int memo(int i, int j, vector<vector<int>> &grid, vector<vector<int>> &dp)
+   {
+      if (i < 0 || j < 0)
+         return 0;
+      if (grid[i][j] == 1)
+         return 0;
+      if (i == 0 && j == 0)
+         return 1;
+      if (dp[i][j] != -1)
+         return dp[i][j];
+      return dp[i][j] = memo(i - 1, j, grid, dp) + memo(i, j - 1, grid, dp);
+   }
+
+   int tabu(vector<vector<int>> &grid)
+   {
+      int n = grid.size(), m = grid[0].size();
+      vector<vector<int>> dp(n, vector<int>(m));
+
+      for (int i = 0; i < n; i++)
+      {
+         for (int j = 0; j < m; j++)
+         {
+            if (grid[i][j] == 1)
+            {
+               dp[i][j] = 0;
+            }
+            else if (i == 0 && j == 0)
+            {
+               dp[i][j] = 1;
+            }
+            else
+            {
+               int up = 0, left = 0;
+               if (i > 0)
+                  up = dp[i - 1][j];
+               if (j > 0)
+                  left = dp[i][j - 1];
+               dp[i][j] = up + left;
+            }
+         }
+      }
+
+      return dp[n - 1][m - 1];
+   }
+};

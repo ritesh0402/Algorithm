@@ -42,3 +42,54 @@ public:
       return {};
    }
 };
+
+class Solution
+{
+public:
+   vector<int> findOrder(int numCourses, vector<vector<int>> &prerequisites)
+   {
+      vector<vector<int>> adj(numCourses, vector<int>());
+      for (auto &x : prerequisites)
+      {
+         adj[x[1]].push_back(x[0]);
+      }
+
+      vector<bool> vis(numCourses, false);
+      vector<bool> pathVis(numCourses, false);
+      vector<int> ans;
+
+      for (int i = 0; i < numCourses; i++)
+      {
+         if (!vis[i])
+         {
+            if (checkCycleDfs(i, pathVis, vis, adj, ans))
+               return {};
+         }
+      }
+      reverse(ans.begin(), ans.end());
+      return ans;
+   }
+
+   bool checkCycleDfs(int i, vector<bool> &pathVis, vector<bool> &vis, vector<vector<int>> &adj, vector<int> &ans)
+   {
+      vis[i] = true;
+      pathVis[i] = true;
+
+      for (auto &adjNode : adj[i])
+      {
+         if (!vis[adjNode])
+         {
+            if (checkCycleDfs(adjNode, pathVis, vis, adj, ans))
+               return true;
+         }
+         else if (pathVis[adjNode])
+         {
+            return true;
+         }
+      }
+      pathVis[i] = false;
+      ans.push_back(i);
+
+      return false;
+   }
+};

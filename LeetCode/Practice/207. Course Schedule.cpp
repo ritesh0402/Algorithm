@@ -43,3 +43,50 @@ public:
       return cnt == n;
    }
 };
+
+class Solution
+{
+public:
+   bool canFinish(int numCourses, vector<vector<int>> &prerequisites)
+   {
+      vector<vector<int>> adj(numCourses, vector<int>());
+      for (auto &x : prerequisites)
+      {
+         adj[x[1]].push_back(x[0]);
+      }
+
+      vector<bool> vis(numCourses, false);
+      vector<bool> pathVis(numCourses, false);
+      for (int i = 0; i < numCourses; i++)
+      {
+         if (!vis[i])
+         {
+            if (checkCycleDfs(i, pathVis, vis, adj))
+               return false;
+         }
+      }
+      return true;
+   }
+
+   bool checkCycleDfs(int i, vector<bool> &pathVis, vector<bool> &vis, vector<vector<int>> &adj)
+   {
+      vis[i] = true;
+      pathVis[i] = true;
+
+      for (auto &adjNode : adj[i])
+      {
+         if (!vis[adjNode])
+         {
+            if (checkCycleDfs(adjNode, pathVis, vis, adj))
+               return true;
+         }
+         else if (pathVis[adjNode])
+         {
+            return true;
+         }
+      }
+      pathVis[i] = false;
+
+      return false;
+   }
+};

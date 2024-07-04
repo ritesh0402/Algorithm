@@ -69,3 +69,40 @@ public:
       return dp[x][y] = subPath(m, n, x + 1, y, dp) + subPath(m, n, x, y + 1, dp);
    }
 };
+
+class Solution
+{
+public:
+   int uniquePaths(int n, int m)
+   {
+      // vector<vector<int>> dp(n, vector<int>(m, -1));
+      // return memo(n-1, m-1, dp);
+      return tabu(n, m);
+   }
+
+   int memo(int n, int m, vector<vector<int>> &dp)
+   {
+      if (n < 0 || m < 0)
+         return 0;
+      if (n == 0 || m == 0)
+         return 1;
+
+      if (dp[n][m] != -1)
+         return dp[n][m];
+      return dp[n][m] = memo(n, m - 1, dp) + memo(n - 1, m, dp);
+   }
+
+   int tabu(int n, int m)
+   {
+      vector<vector<int>> dp(n, vector<int>(m, 1));
+      for (int i = 1; i < n; i++)
+      {
+         for (int j = 1; j < m; j++)
+         {
+            dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+         }
+      }
+
+      return dp[n - 1][m - 1];
+   }
+};
