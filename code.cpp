@@ -1,66 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int gcd(int a, int b)
-{
-    while (b != 0)
-    {
-        int temp = b;
-        b = a % b;
-        a = temp;
-    }
-    return a;
-}
-
 void runCase()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; i++)
+    string str;
+    cin >> str;
+    int len = str.length();
+    int ans = 0;
+    for (int l = 0; l < len; l++)
     {
-        cin >> a.at(i);
-    }
-    vector<int> b(n);
-    set<int> st;
-    for (auto &x : b)
-    {
-        cin >> x;
-        st.insert(x);
-    }
-    multiset<int> ops;
-    for (int i = 0; i < n; i++)
-    {
-        if (a[i] != b[i])
-            ops.insert(b[i]);
-    }
-
-    int m;
-    cin >> m;
-    bool status = false;
-    for (int i = 0; i < m; i++)
-    {
-        int x;
-        cin >> x;
-        if (ops.find(x) != ops.end())
+        int ones = 0, zeros = 0;
+        for (int r = l; r < len; r++)
         {
-            ops.erase(ops.find(x));
-            if (i == m - 1)
-                status = true;
+            if (str[r] == '0')
+            {
+                zeros++;
+            }
+            else
+            {
+                ones++;
+            }
+            if (ones == zeros)
+            {
+                // cout << l << r << " | ";
+                ans += l + r + 1;
+            }
         }
-        else if (st.count(x))
-        {
-            if (i == m - 1)
-                status = true;
-        }
+        // cout << endl;
     }
-
-    if (status && ops.size() == 0)
-    {
-        cout << "YES" << endl;
-    }
-    else
-        cout << "NO" << endl;
+    cout << ans << endl;
 }
 
 int main()
